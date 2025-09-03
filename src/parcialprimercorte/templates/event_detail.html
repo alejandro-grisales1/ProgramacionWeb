@@ -1,0 +1,21 @@
+{% extends "base_template.html" %} {% block title %} Gestor De Eventos {%
+endblock %} {% block content %}
+<div>
+  <h1>Detalles del Evento</h1>
+  <p><strong>Título:</strong> {{ event.title }}</p>
+  <p><strong>Descripción:</strong> {{ event.description }}</p>
+  <p><strong>Fecha:</strong> {{ event.date }}</p>
+  <p><strong>Hora:</strong> {{ event.time }}</p>
+  <p><strong>Ubicación:</strong> {{ event.location }}</p>
+  <p><strong>Categoría:</strong> {{ event.category }}</p>
+  <p><strong>Máximo de Asistentes:</strong> {{ event.max_attendees }}</p>
+  <p><strong>Asistentes:</strong></p>
+  <ul>
+    {% for attendee in event.attendees %}
+    <li>{{ attendee.name }} ({{ attendee.email }})</li>
+    {% endfor %}
+  </ul>
+  <p><strong>Total de Asistentes:</strong> {{ event.attendees|length }}</p>
+  <button><a href="/">Volver al Inicio</a></button>
+</div>
+{% endblock %}

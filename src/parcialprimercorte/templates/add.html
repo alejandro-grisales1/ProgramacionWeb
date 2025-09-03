@@ -1,0 +1,43 @@
+{% extends "base_template.html" %} {% block title %}Gestor De Eventos{% endblock
+%} {% block content %}
+<div>
+  <h1>Nuevo Evento</h1>
+  <form method="POST" action="/admin/event">
+    <label for="title">Título del Evento:</label><br />
+    <input type="text" id="title" name="title" required /><br /><br />
+
+    <label for="description">Descripción:</label><br />
+    <textarea id="description" name="description" required></textarea
+    ><br /><br />
+
+    <label for="date">Fecha:</label><br />
+    <input type="date" id="date" name="date" required /><br /><br />
+
+    <label for="time">Hora:</label><br />
+    <input type="time" id="time" name="time" required /><br /><br />
+
+    <label for="location">Ubicación:</label><br />
+    <input type="text" id="location" name="location" required /><br /><br />
+
+    <label for="category">Categoría:</label><br />
+    <select id="category" name="category" required>
+      {% for category in categories %}
+      <option value="{{ category }}">{{ category }}</option>
+      {% endfor %}</select
+    ><br /><br />
+
+    <label for="max_attendees">Máximo de asistentes:</label><br />
+    <input
+      type="number"
+      id="max_attendees"
+      name="max_attendees"
+      min="1"
+      required
+    /><br /><br />
+
+    <input type="submit" value="Agregar Evento" />
+  </form>
+  <br />
+  <button><a href="/">Volver al Inicio</a></button>
+</div>
+{% endblock %}

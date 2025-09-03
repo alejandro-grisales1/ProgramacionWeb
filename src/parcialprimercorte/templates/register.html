@@ -1,0 +1,17 @@
+{% extends "base_template.html" %} {% block title %} Gestor De Eventos {%
+endblock %} {% block content %}
+<div>
+  <h1>Registro de Asistente</h1>
+  <form method="POST" action="/event/{{ event.slug }}/register/">
+    <label for="name">Nombre:</label><br />
+    <input type="text" id="name" name="name" required /><br /><br />
+
+    <label for="email">Correo Electrónico:</label><br />
+    <input type="email" id="email" name="email" required /><br /><br />
+
+    <input type="submit" value="Registrar" />
+  </form>
+  <br />
+  <button><a href="/">Volver al Inicio</a></button>
+</div>
+{% endblock %}

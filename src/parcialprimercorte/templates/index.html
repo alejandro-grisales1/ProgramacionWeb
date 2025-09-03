@@ -1,0 +1,51 @@
+{% extends "base_template.html" %} {% block title %} Gestor De Eventos {%
+endblock %} {% block content %}
+<div>
+  <h1>Home</h1>
+  <p>
+    Bienvenido al gestor de eventos. Aquí puedes crear, ver y administrar tus
+    eventos fácilmente.
+  </p>
+  <a href="/admin/event">Agregar Evento</a>
+  <br>
+  <br>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Nombre del Evento</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Ubicación</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+        <!-- Aquí se llenarán los eventos dinámicamente -->
+
+        {% if events %}
+          {% for event in events %}
+            {% if event.featured %}
+                <tr>
+                  <td>{{ event.title }}</td>
+                  <td>{{ event.description }}</td>
+                  <td>{{ event.date }}</td>
+                  <td>{{ event.time }}</td>
+                  <td>{{ event.location }}</td>
+                  <td>
+                    <button><a href="/event/{{ event.slug }}">Detalles</a></button>
+                    {% if event.attendees|length < event.max_attendees %}
+                    <button><a href="/event/{{ event.slug }}/register/">Registrar</a></button>
+                    {% endif %}
+                  </td>
+                </tr>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="6">No hay eventos disponibles.</td>
+          </tr>
+        {% endif %}
+    </tbody>
+</div>
+{% endblock %}
