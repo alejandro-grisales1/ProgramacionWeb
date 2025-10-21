@@ -1,0 +1,30 @@
+{% extends 'base_template.html' %}
+{% block title %}Sign up - Microblog{% endblock %}
+{% block content %}
+  <h1>Sign up</h1>
+  <form method="post">
+    {{ form.csrf_token }}
+    <p>
+      {{ form.username.label }}<br>
+      {{ form.username(size=32) }}
+      {% for err in form.username.errors %}
+        <span class="error">{{ err }}</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.email.label }}<br>
+      {{ form.email(size=64) }}
+      {% for err in form.email.errors %}
+        <span class="error">{{ err }}</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.password.label }}<br>
+      {{ form.password() }}
+      {% for err in form.password.errors %}
+        <span class="error">{{ err }}</span>
+      {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}

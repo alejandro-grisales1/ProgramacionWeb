@@ -1,0 +1,63 @@
+{% extends 'base_template.html' %} {% block title %}{{ post.title }} -
+Microblog{% endblock %} {% block content %}
+<div class="container">
+  <div class="post-detail">
+    <div class="post-header">
+      <h1 class="post-title">{{ post.title }}</h1>
+      <div class="post-meta">
+        <div class="post-author">
+          <i class="fas fa-user"></i>
+          <a href="{{ url_for('user_posts', username=post.author.username) }}">
+            {{ post.author.username }}
+          </a>
+        </div>
+        <div class="post-date">
+          <i class="fas fa-calendar"></i>
+          {{ post.created_at.strftime('%B %d, %Y at %I:%M %p') }}
+        </div>
+        {% if post.category %}
+        <div class="post-category">
+          <i class="fas fa-tag"></i>
+          <a href="{{ url_for('category_posts', category=post.category) }}">
+            {{ post.category|title }}
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if post.excerpt %}
+    <div class="post-excerpt">
+      <p>{{ post.excerpt }}</p>
+    </div>
+    {% endif %}
+
+    <div class="post-content">{{ post.content|safe }}</div>
+
+    <div class="post-actions">
+      {% if current_user.is_authenticated and (current_user.id == post.user_id
+      or current_user.is_admin) %}
+      <a
+        href="{{ url_for('edit_post', post_id=post.id) }}"
+        class="btn btn-secondary"
+      >
+        <i class="fas fa-edit"></i> Editar Post
+      </a>
+      <form
+        method="POST"
+        action="{{ url_for('delete_post', post_id=post.id) }}"
+        onsubmit="return confirm('¿Estás seguro de que quieres eliminar este post?')"
+        style="display: inline"
+      >
+        <button type="submit" class="btn btn-danger">
+          <i class="fas fa-trash"></i> Eliminar Post
+        </button>
+      </form>
+      {% endif %}
+      <a href="{{ url_for('index') }}" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

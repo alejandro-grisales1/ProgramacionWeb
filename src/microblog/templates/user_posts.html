@@ -1,0 +1,70 @@
+{% extends 'base_template.html' %}
+{% block title %}{{ user.username }}'s Posts - Microblog{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="user-profile">
+    <div class="user-header">
+      <h1>{{ user.username }}'s Posts</h1>
+      <div class="user-info">
+        <p>Member since {{ user.created_at.strftime('%B %Y') }}</p>
+        {% if user.bio %}
+          <p class="user-bio">{{ user.bio }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if posts %}
+      <div class="posts-grid">
+        {% for post in posts %}
+          <article class="post-card">
+            <div class="post-header">
+              <h3 class="post-title">
+                <a href="{{ url_for('post_detail', slug=post.slug) }}">{{ post.title }}</a>
+              </h3>
+              {% if post.category %}
+                <span class="post-category">{{ post.category|title }}</span>
+              {% endif %}
+            </div>
+            
+            {% if post.excerpt %}
+              <div class="post-excerpt">
+                <p>{{ post.excerpt }}</p>
+              </div>
+            {% endif %}
+            
+            <div class="post-meta">
+              <div class="post-date">
+                <i class="fas fa-calendar"></i>
+                {{ post.created_at.strftime('%B %d, %Y') }}
+              </div>
+              {% if post.category %}
+                <div class="post-category-link">
+                  <i class="fas fa-tag"></i>
+                  <a href="{{ url_for('category_posts', category=post.category) }}">
+                    {{ post.category|title }}
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+            
+            <div class="post-actions">
+              <a href="{{ url_for('post_detail', slug=post.slug) }}" class="btn btn-outline">
+                Read More <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <i class="fas fa-user"></i>
+        <h3>No posts yet</h3>
+        <p>{{ user.username }} hasn't shared any posts yet.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+          <i class="fas fa-home"></i> Back to Home
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

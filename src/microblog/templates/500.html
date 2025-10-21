@@ -1,0 +1,22 @@
+{% extends 'base_template.html' %} {% block title %}Error del Servidor -
+Microblog{% endblock %} {% block content %}
+<div class="container">
+  <div class="error-page">
+    <div class="error-content">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h1>500 - Error Interno del Servidor</h1>
+      <p>
+        Algo salió mal en nuestro lado. Por favor intenta de nuevo más tarde.
+      </p>
+      <div class="error-actions">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+          <i class="fas fa-home"></i> Ir al Inicio
+        </a>
+        <a href="javascript:history.back()" class="btn btn-outline">
+          <i class="fas fa-arrow-left"></i> Volver
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
